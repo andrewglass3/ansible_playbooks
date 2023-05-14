@@ -6,6 +6,7 @@
     default_container_name: docker
     default_container_image: ubuntu
     default_container_command: sleep 1d
+    docker_user: andrew
 
   tasks:
     - name: Wait for apt to unlock
@@ -66,3 +67,13 @@
     - name: Install Docker Composer
       pip:
         name: docker-compose
+
+    - name: ensure "{{ docker_user }}" is lingering
+      stat:
+        path: "/var/lib/systemd/linger/{{ docker_user }}"
+      register: docker_user_lingering
+      
+    - name: enable lingering for "{{ docker_user }}"
+      become: 'yes'
+      command: "loginctl enable-linger {{ docker_user }}"
+      when: not docker_user_lingering.stat.exists
