@@ -53,7 +53,8 @@
         name: docker
 
 # Uncomment this section if you want to install rootless docker
-#
+# This will ensure your docker containers continue running after you exit an ssh session on the 
+# host running docker :)
     # - name: Download the Rootless Docker installer
     #   get_url:
     #     url: https://get.docker.com/rootless
