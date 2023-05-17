@@ -52,11 +52,13 @@
       pip:
         name: docker
 
-    - name: Download the Rootless Docker installer
-      get_url:
-        url: https://get.docker.com/rootless
-        dest: ~/dockerRootless.sh
-        mode: 0700
+# Uncomment this section if you want to install rootless docker
+#
+    # - name: Download the Rootless Docker installer
+    #   get_url:
+    #     url: https://get.docker.com/rootless
+    #     dest: ~/dockerRootless.sh
+    #     mode: 0700
 
     - name: Add $USER to docker group
       user:
@@ -68,12 +70,14 @@
       pip:
         name: docker-compose
 
-    - name: ensure "{{ docker_user }}" is lingering
-      stat:
-        path: "/var/lib/systemd/linger/{{ docker_user }}"
-      register: docker_user_lingering
+# Uncomment this section if you want to enable docker user lingering when running rootless docker
+#
+    # - name: ensure "{{ docker_user }}" is lingering
+    #   stat:
+    #     path: "/var/lib/systemd/linger/{{ docker_user }}"
+    #   register: docker_user_lingering
       
-    - name: enable lingering for "{{ docker_user }}"
-      become: 'yes'
-      command: "loginctl enable-linger {{ docker_user }}"
-      when: not docker_user_lingering.stat.exists
+    # - name: enable lingering for "{{ docker_user }}"
+    #   become: 'yes'
+    #   command: "loginctl enable-linger {{ docker_user }}"
+    #   when: not docker_user_lingering.stat.exists
