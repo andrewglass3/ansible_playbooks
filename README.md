@@ -1,7 +1,7 @@
 # ansible_playbooks
 Repo Containing Ansible Playbooks
 
-* Configure your hosts in the included hosts file.
+* Configure your inventory in the included hosts file.
 
 * cd into this folder via terminal on your computer
 
