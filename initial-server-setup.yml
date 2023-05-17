@@ -28,6 +28,8 @@
         groups: sudo
         append: true
         create_home: true
+        home: /home/{{ created_username }}
+        shell: /bin/bash
 
 ## ssh key setup and disable root password - only allow root ssh with ssh key
     - name: Set authorized key for remote user
