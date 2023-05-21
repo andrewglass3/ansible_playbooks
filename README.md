@@ -13,7 +13,7 @@ In the above example - I target the install docker playbook, I set my inventory 
 I also set the user to andrew which is already configured on the remote host with ssh keys for this local machine Im working on in the authorized key file.
 
 ## Plex Info ##
-When setting up Plex on a which resides on a vm or different network:
+When setting up Plex which resides on a vm or different network:
 
 If you’re on a different network than the server computer (or the entire “local network” is not in the private network IP ranges), you’ll first need to set up a SSH tunnel so that you can access things as if they were local.
 
