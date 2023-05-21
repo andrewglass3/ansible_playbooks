@@ -1,5 +1,8 @@
 # ansible_playbooks
-Repo Containing Ansible Playbooks
+## Repo Containing Ansible Playbooks
+
+### This repo is a work in progress as I learn Ansible. This will change over time and be split up as more efficient roles that can be called other by playbooks.
+
 
 * Configure your inventory in the included hosts file.
 
