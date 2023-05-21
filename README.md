@@ -22,7 +22,7 @@ Tip!: This is only necessary for the initial setup. Once you’ve gone through t
 macOS or Linux
 Open a Terminal window or your command prompt
 Enter the following command (substituting the IP address of your server as appropriate):
-ssh -L 8888:127.0.0.1:32400 ip.address.of.server
+``` ssh -L 8888:127.0.0.1:32400 ip.address.of.server ```
 Open a browser window
-Type http://127.0.0.1:8888/web into the address bar
+Type ```http://127.0.0.1:8888/web ```into the address bar
 The browser will connect to the server as if it were local and load Plex Web App
