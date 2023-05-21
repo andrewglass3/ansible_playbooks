@@ -1,0 +1,102 @@
+---
+- hosts: plex # Edit this to match the host within the hosts file you wish to target or set to all if you want it on all hosts.
+  become: true
+  # Edit vars created_username to your desired username
+  vars:
+    created_username: dave
+
+  tasks:
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+# Add sudo user and create new regular user with sudo privileges
+    - name: Setup passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+    - name: Create a new regular user with sudo privileges
+      user:
+        name: "{{ created_username }}"
+        state: present
+        groups: sudo
+        append: true
+        create_home: true
+        home: /home/{{ created_username }}
+        shell: /bin/bash
+
+## ssh key setup and disable root password - only allow root ssh with ssh key
+    - name: Set authorized key for remote user
+      ansible.posix.authorized_key:
+        user: "{{ created_username }}"
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+    - name: Disable password authentication for root
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin prohibit-password'
+
+# Install essential packages on server
+
+    - name: Update apt and install required system packages
+      apt:
+        pkg:
+          - curl
+          - vim
+          - ack
+          - netcat
+          - git
+          - wget
+          - nfs-common
+        state: latest
+        update_cache: true
+  
+# Add Plex Repo and public key
+    - name: Add Plex Publix GPG apt Key
+      apt_key:
+        url: https://downloads.plex.tv/plex-keys/PlexSign.key
+        state: present
+
+    - name: Add Plex Repository
+      apt_repository:
+        repo: deb https://downloads.plex.tv/repo/deb public main 
+        state: present
+
+# Install Plex Media Server
+    - name: Install Plex Media Server
+      apt:
+        name: plexmediaserver
+        state: latest
+        update_cache: true
+
+# Create NFS Mount Point
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /mnt/samba
+        state: directory
+        mode: '0755'
+
+# Add NFS Mount to FSTAB
+    - name: Mount NFS volumes with noauto according to boot option
+      ansible.posix.mount:
+        src: 192.168.254.5:/mnt/storage
+        path: /mnt/samba
+        opts: rw,sync,hard
+        state: mounted
+        fstype: nfs
+
+# Start and enable Plex service
+    - name: Start and enable Plex service
+      ansible.builtin.service:
+        name: plexmediaserver
+        state: started
+        enabled: true
