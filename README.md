@@ -25,4 +25,8 @@ Enter the following command (substituting the IP address of your server as appro
 ``` ssh -L 8888:127.0.0.1:32400 ip.address.of.server ```
 Open a browser window
 Type ```http://127.0.0.1:8888/web ```into the address bar
-The browser will connect to the server as if it were local and load Plex Web App
+The browser will connect to the server as if it were local and load Plex Web App.  
+
+Continue your login and setup of plex.
+
+Now try accessing your plex server by the proper ip address of your remote server. You should be able to login and use plex as normal.
