@@ -1,2 +1,14 @@
-[plex]
-192.168.254.9
+## set up ssh user name and path to python3 ##
+[all:vars]
+ansible_user='andrew'
+ansible_become=yes
+ansible_become_method=sudo
+
+[servers]
+192.168.254.11 #monitoringbox
+192.168.254.247 #dockermediabox
+192.168.254.249 #samba
+192.168.254.250 #plex
+192.168.254.251 #cloudflare-connector
+
+
