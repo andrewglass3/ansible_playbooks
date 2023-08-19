@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## set up ssh user name and path to python3 ##
 [all:vars]
 ansible_user='andrew'
@@ -10,5 +11,4 @@ ansible_become_method=sudo
 192.168.254.249 #samba
 192.168.254.250 #plex
 192.168.254.251 #cloudflare-connector
-
 
