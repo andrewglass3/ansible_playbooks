@@ -7,6 +7,7 @@ ansible_become_method=sudo
 192.168.254.11 #monitoringbox
 192.168.254.247 #dockermediabox
 192.168.254.249 #samba
-192.168.254.250 #plex
 192.168.254.251 #cloudflare-connector
 
+[plex]
+192.168.254.250 #plex

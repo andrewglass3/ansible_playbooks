@@ -59,6 +59,11 @@
           - nfs-common
         state: latest
         update_cache: true
+
+# Set TimeZone to Europe/London
+    - name: set timezone to Europe/London
+      timezone:
+        name: Europe/London
   
 # Add Plex Repo and public key
     - name: Add Plex Publix GPG apt Key
@@ -88,7 +93,7 @@
 # Add NFS Mount to FSTAB
     - name: Mount NFS volumes with noauto according to boot option
       ansible.posix.mount:
-        src: 192.168.254.5:/mnt/storage
+        src: 192.168.254.253:/mnt/mergerStorage
         path: /mnt/samba
         opts: rw,sync,hard
         state: mounted
