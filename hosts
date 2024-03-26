@@ -4,10 +4,10 @@ ansible_become=yes
 ansible_become_method=sudo
 
 [servers]
-192.168.254.240 #monitoringbox
 192.168.254.247 #dockermediabox
 192.168.254.249 #samba
 192.168.254.251 #cloudflare-connector
+82.165.200.86   #ionos-openvpn
 
 [plex]
 192.168.254.250 #plex
